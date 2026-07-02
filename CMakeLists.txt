@@ -7,11 +7,16 @@ set(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/extern/raylib)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/extern/raylib/) 
+
 file(GLOB_RECURSE SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 file(GLOB_RECURSE HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
+
+target_link_libraries(${PROJECT_NAME} "raylib")
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
