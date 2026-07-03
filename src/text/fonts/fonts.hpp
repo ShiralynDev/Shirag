@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace Shirag::Text::Fonts {
+namespace Shirag::Text {
 
     /// Struct for advanced versions of the Raylib Font struct
     struct Font { // [TASKIG] add overload for codepoints
@@ -30,6 +30,6 @@ namespace Shirag::Text::Fonts {
     };
 
     /// Finds the font closest to the target size
-    Font* findClosestFont(std::vector<Font> Fonts, int TargetFontSize);
+    Font* findClosestFont(std::vector<Font>* Fonts, int TargetFontSize);
 
 }

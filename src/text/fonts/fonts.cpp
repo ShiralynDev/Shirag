@@ -2,11 +2,11 @@
 #include <cstdlib>
 #include <iostream>
 
-Shirag::Text::Fonts::Font* Shirag::Text::Fonts::findClosestFont(std::vector<Font> Fonts, int TargetFontSize) {
-    Shirag::Text::Fonts::Font* closestFontPtr = nullptr;
+Shirag::Text::Font* Shirag::Text::findClosestFont(std::vector<Font>* Fonts, int TargetFontSize) {
+    Shirag::Text::Font* closestFontPtr = nullptr;
     int closestFontDiffrenceInSize = 0;
 
-    for (auto& font : Fonts) {
+    for (auto& font : *Fonts) {
         int diffrenceInSize = TargetFontSize - font.size();
         if (diffrenceInSize == 0) {
             return &font;
