@@ -5,7 +5,6 @@
 #include "drawing/text/text.hpp"
 #include "raylib.h"
 #include "text/fonts/fonts.hpp"
-#include <iostream>
 #include <raymath.h>
 #include <vector>
 
