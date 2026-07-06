@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-std::vector<Vector2> raytrace(Vector2 StartPosition, int Segments, std::vector<Rectangle>& Obstacles, int Range) {
+std::vector<Vector2> Shirag::Raytrace::raytrace(Vector2 StartPosition, int Segments, std::vector<Rectangle>& Obstacles, int Range) {
     const float degreesPerTrace = 360.0 / float(Segments);
 
     std::vector<Vector2> collisionPoints;
