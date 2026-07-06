@@ -1,3 +1,4 @@
 build
 docs
 .cache
+extern/discord_social_sdk
