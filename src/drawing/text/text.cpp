@@ -24,3 +24,9 @@ void Shirag::Drawing::drawTextCenterPoint(Vector2 Center, std::string& Text, int
                spacing,
                TextColor);
 }
+
+void Shirag::Drawing::drawTextCenterRect(Rectangle Rect, std::string& Text, int FontSize, Color TextColor, bool CenterX, bool CenterY, Font Font) {
+    Vector2 centerPoint = { Rect.x + Rect.width / 2.0f, Rect.y + Rect.height / 2.0f };
+
+    drawTextCenterPoint(centerPoint, Text, FontSize, TextColor, CenterX, CenterY, Font);
+}

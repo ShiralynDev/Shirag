@@ -9,4 +9,5 @@ namespace Shirag::Drawing {
 
     void drawTextCenterPoint(Vector2 Center, std::string& Text, int FontSize, Color TextColor, bool CenterX = true, bool CenterY = true, Font Font = GetFontDefault());
 
+    void drawTextCenterRect(Rectangle Rect, std::string& Text, int FontSize, Color TextColor, bool CenterX, bool CenterY, Font Font = GetFontDefault());
 }
