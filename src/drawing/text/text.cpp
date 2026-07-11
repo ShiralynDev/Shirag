@@ -17,9 +17,17 @@ void Shirag::Drawing::drawTextCenterPoint(Vector2 Center, std::string& Text, int
     float spacing = FontSize / 10.0f;
     Vector2 textSize = MeasureTextEx(Font, Text.c_str(), FontSize, spacing);
 
+    float x = Center.x;
+    float y = Center.y;
+
+    if (CenterX)
+        x = Center.x - textSize.x / 2.0f;
+    if (CenterY)
+        y = Center.y - textSize.y / 2.0f;
+
     DrawTextEx(Font,
                Text.c_str(),
-               { Center.x - textSize.x / 2.0f, Center.y - textSize.y / 2.0f },
+               { x, y },
                FontSize,
                spacing,
                TextColor);
@@ -27,6 +35,11 @@ void Shirag::Drawing::drawTextCenterPoint(Vector2 Center, std::string& Text, int
 
 void Shirag::Drawing::drawTextCenterRect(Rectangle Rect, std::string& Text, int FontSize, Color TextColor, bool CenterX, bool CenterY, Font Font) {
     Vector2 centerPoint = { Rect.x + Rect.width / 2.0f, Rect.y + Rect.height / 2.0f };
+
+    if (!CenterX)
+        centerPoint.x = Rect.x;
+    if (!CenterY)
+        centerPoint.y = Rect.y;
 
     drawTextCenterPoint(centerPoint, Text, FontSize, TextColor, CenterX, CenterY, Font);
 }
