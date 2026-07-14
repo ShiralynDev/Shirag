@@ -27,6 +27,14 @@ namespace Shirag::Text {
         Font(std::string FilePath, int FontSize) {
             font = LoadFontEx(FilePath.c_str(), FontSize, NULL, 0);
         }
+        /// Create font from Raylib font
+        Font(::Font Font) {
+            font = Font;
+        }
+
+        ~Font() {
+            UnloadFont(font);
+        }
     };
 
     /// Finds the font closest to the target size
