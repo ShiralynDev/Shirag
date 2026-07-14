@@ -53,10 +53,12 @@ bool Shirag::WindowSystem::Window::update(bool SkipUpdate, std::vector<Shirag::T
         }
     }
 
+    closeBox = { window.x + window.width - 50, window.y, 50, 50 };
+
     if (draggable) {
         Rectangle dragableAreaRect = { window.x, window.y, window.width, 55.0f };
         Vector2 mousePos = GetMousePosition();
-        if (CheckCollisionPointRec(mousePos, dragableAreaRect)) {
+        if (CheckCollisionPointRec(mousePos, dragableAreaRect) && !CheckCollisionPointRec(mousePos, closeBox)) {
             SetMouseCursor(MOUSE_CURSOR_RESIZE_ALL);
             mouseCursorChanged = true;
             if (IsMouseButtonPressed(0)) {
@@ -75,8 +77,6 @@ bool Shirag::WindowSystem::Window::update(bool SkipUpdate, std::vector<Shirag::T
         }
     }
 
-    closeBox = { window.x + window.width - 50, window.y, 50, 50 };
-
     if (CheckCollisionPointRec(GetMousePosition(), closeBox)) {
         SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
         mouseCursorChanged = true;
@@ -84,7 +84,6 @@ bool Shirag::WindowSystem::Window::update(bool SkipUpdate, std::vector<Shirag::T
         if (IsMouseButtonPressed(0)) {
             mouseCursorChanged = false; // it shows u can move whilst on close box, this is temp fix, should not show move on window close box // this is shizo ngl
             shown = false;
-            dragging = false; // this would bug otherwise cus closing and draging is the same
         }
     }
 
