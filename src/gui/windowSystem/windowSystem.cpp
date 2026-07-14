@@ -44,12 +44,18 @@ bool Shirag::WindowSystem::Window::update(bool SkipUpdate, std::vector<Shirag::T
         if (IsMouseButtonUp(0)) {
             resizing = false;
         }
-
         if (resizing) {
-            if (mousePos.x - window.x > minSize.x && mousePos.x - window.x < maxSize.x)
-                window.width = mousePos.x - window.x;
-            if (mousePos.y - window.y > minSize.y && mousePos.y - window.y < maxSize.y)
-                window.height = mousePos.y - window.y;
+            if (maxSize.x == -1) {
+                if (mousePos.x - window.x > 450)
+                    window.width = mousePos.x - window.x;
+                if (mousePos.y - window.y > 200)
+                    window.height = mousePos.y - window.y;
+            } else {
+                if (mousePos.x - window.x > minSize.x && mousePos.x - window.x < maxSize.x)
+                    window.width = mousePos.x - window.x;
+                if (mousePos.y - window.y > minSize.y && mousePos.y - window.y < maxSize.y)
+                    window.height = mousePos.y - window.y;
+            }
         }
     }
 

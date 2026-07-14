@@ -27,7 +27,7 @@ namespace Shirag::WindowSystem {
         bool resizable = false;
         bool shown = false;
         Vector2 minSize = { 200, 200 };
-        Vector2 maxSize = { 99999, 99999 };
+        Vector2 maxSize = { -1, -1 };
         bool mouseCursorChanged = false;
         bool onTop = false;
 
