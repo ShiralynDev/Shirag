@@ -84,7 +84,7 @@ bool Shirag::WindowSystem::Window::update(bool SkipUpdate, std::vector<Shirag::T
         if (IsMouseButtonPressed(0)) {
             mouseCursorChanged = false; // it shows u can move whilst on close box, this is temp fix, should not show move on window close box // this is shizo ngl
             shown = false;
-            draggable = false; // this would bug otherwise cus closing and draging is the same
+            dragging = false; // this would bug otherwise cus closing and draging is the same
         }
     }
 
