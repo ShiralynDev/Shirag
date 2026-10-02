@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../src/discord/discord.hpp" // make so only if discord deps is installed
+// #include "../src/discord/discord.hpp" // make so only if discord deps is installed
 #include "../src/drawing/circle/circle.hpp"
 #include "../src/drawing/rectangle/rectangle.hpp"
 #include "../src/drawing/text/text.hpp"

@@ -4,6 +4,7 @@ project(Shirag)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_BUILD_TYPE Debug)
+set(COMPILE_WITH_DISCORD_SDK false)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
@@ -11,6 +12,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/extern/raylib)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/extern/raylib/) 
 
 file(GLOB_RECURSE SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+list(REMOVE_ITEM SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/discord/discord.cpp")
 
 file(GLOB_RECURSE HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
 
@@ -24,25 +26,29 @@ target_include_directories(${PROJECT_NAME}
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-set(DISCORD_SDK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/extern/discord_social_sdk")
-set(DISCORD_SDK_LIB_DIR "${DISCORD_SDK_ROOT}/lib/release")
-set(DISCORD_SDK_BIN_DIR "${DISCORD_SDK_ROOT}/bin/release")
-set(DISCORD_SDK_INCLUDE_DIR "${DISCORD_SDK_ROOT}/include")
+if(COMPILE_WITH_DISCORD_SDK)
+  set(DISCORD_SDK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/extern/discord_social_sdk")
+  set(DISCORD_SDK_LIB_DIR "${DISCORD_SDK_ROOT}/lib/release")
+  set(DISCORD_SDK_BIN_DIR "${DISCORD_SDK_ROOT}/bin/release")
+  set(DISCORD_SDK_INCLUDE_DIR "${DISCORD_SDK_ROOT}/include")
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${DISCORD_SDK_INCLUDE_DIR})
+  target_include_directories(${PROJECT_NAME} PUBLIC ${DISCORD_SDK_INCLUDE_DIR})
 
-if(WIN32)
-    set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/discord_partner_sdk.lib")
-    set(DISCORD_SHARED_LIB "${DISCORD_SDK_BIN_DIR}/discord_partner_sdk.dll")
-elseif(APPLE)
-    set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.dylib")
-    set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.dylib")
-else()
-    set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.so")
-    set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.so")
+  if(WIN32)
+      set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/discord_partner_sdk.lib")
+      set(DISCORD_SHARED_LIB "${DISCORD_SDK_BIN_DIR}/discord_partner_sdk.dll")
+  elseif(APPLE)
+      set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.dylib")
+      set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.dylib")
+  else()
+      set(DISCORD_LIB_PATH "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.so")
+      set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.so")
+  endif()
+
+  target_link_libraries(${PROJECT_NAME} ${DISCORD_LIB_PATH})
 endif()
 
-target_link_libraries(${PROJECT_NAME} "raylib" ${DISCORD_LIB_PATH})
+target_link_libraries(${PROJECT_NAME} "raylib")
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
 
